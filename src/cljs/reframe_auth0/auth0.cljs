@@ -7,7 +7,10 @@
   "The auth0 lock instance used to login and make requests to Auth0"
   (let [client-id (:client-id config/auth0)
         domain (:domain config/auth0)
-        options (clj->js {})]
+        options (clj->js {:auth 
+                                {:loginAfterSignup true
+                                 :params 
+                                        {:scope "openid profile email permissions"}}})]
     (js/Auth0Lock. client-id domain options)))
 
 (defn handle-profile-response [error profile] *
